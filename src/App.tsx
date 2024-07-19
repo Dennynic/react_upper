@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import cn from 'classnames';
+import cn from './helpers/classNames/classNames';
 import styles from './styles/styles.scss';
 
 import { AboutLazy } from './pages/about-page/about.async';
@@ -9,7 +9,7 @@ import { useTheme } from './theme/useTheme';
 
 const App = () => {
     const {theme, toggleTheme} = useTheme();
-    const appClassNames = cn(styles.app, styles[theme]);
+    const appClassNames = cn(styles.app, {}, [styles[theme]]);
   return (
     <div className={appClassNames}>
       <div className={styles.mainMenu}>
