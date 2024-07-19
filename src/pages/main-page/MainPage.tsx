@@ -4,7 +4,7 @@ import { Counter } from '../../components/counter';
  const MainPage = () => {
   return (
     <div>
-      MAin Page
+      Main Page
         <Counter />
       
     </div>

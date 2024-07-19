@@ -1,27 +1,31 @@
 import React, { Suspense } from 'react';
-import {Link, Route, Routes} from 'react-router-dom';
-import './index.scss';
+import { Link, Route, Routes } from 'react-router-dom';
+import cn from 'classnames';
+import styles from './styles/styles.scss';
 
-//import  AboutPage  from './pages/about-page/AboutPage';
-//import  MainPage  from './pages/main-page/MainPage';
 import { AboutLazy } from './pages/about-page/about.async';
 import { MainLazy } from './pages/main-page/main.async';
-//import {AboutPageAsync} from "./pages/AboutPage/AboutPage.async";
-//import {MainPageAsync} from "./pages/MainPage/MainPage.async";
+import { useTheme } from './theme/useTheme';
 
 const App = () => {
-    return (
-        <div className="app">
-            <Link to={'/'}>Главная</Link>
-            <Link to={'/about'}>О сайте</Link>
-            <Suspense fallback={<div>Loading...</div>}>
-                <Routes>
-                   <Route path={'/about'} element={<AboutLazy />} />
-                    <Route path={'/'} element={<MainLazy />} />
-                </Routes>
-            </Suspense>
-        </div>
-    );
+    const {theme, toggleTheme} = useTheme();
+    const appClassNames = cn(styles.app, styles[theme]);
+  return (
+    <div className={appClassNames}>
+      <div className={styles.mainMenu}>
+        <button onClick={toggleTheme}>Сменить тему</button>
+        <Link to={'/'}>Главная</Link>
+        <Link to={'/about'}>О сайте</Link>
+      </div>
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path={'/about'} element={<AboutLazy />} />
+          <Route path={'/'} element={<MainLazy />} />
+        </Routes>
+      </Suspense>
+    </div>
+  );
 };
 
 export default App;
